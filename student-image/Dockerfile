@@ -12,7 +12,7 @@ RUN echo "Installing packages..." \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo "Adding ${NB_USER} user to student group..." \
-    && groupadd --gid ${STUDENT_GID} ${STUDENT_GROUP}
+    && groupadd --gid ${STUDENT_GID} ${STUDENT_GROUP} \
     && usermod -aG ${STUDENT_GROUP} ${NB_USER}
 
 USER ${NB_USER}
