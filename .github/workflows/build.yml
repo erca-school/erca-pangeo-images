@@ -7,6 +7,7 @@ on:
 
 env:
   IMAGE: student
+  FOLDER: student-image
   REGISTRY: ghcr.io
 
 jobs:
@@ -38,10 +39,10 @@ jobs:
       id: build-and-push
       uses: docker/build-push-action@v6
       with:
-        context: student-image
-        platforms: linux/amd64,linux/arm64
+        context: ${{ env.FOLDER }}
+        platforms: linux/amd64
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main
+          ${{ env.REGISTRY }}/${{ github.repository_owner }}${{ env.IMAGE }}:main
         cache-from: type=gha
         cache-to: type=gha,mode=max
