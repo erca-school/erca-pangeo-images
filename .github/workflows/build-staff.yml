@@ -46,8 +46,3 @@ jobs:
           ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main
         cache-from: type=gha
         cache-to: type=gha,mode=max
-
-    - name: Inspect Image
-      run: |
-        docker run ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main conda list
-        docker images ls
