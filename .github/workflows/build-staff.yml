@@ -43,6 +43,15 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ github.repository_owner }}${{ env.IMAGE }}:main
+          ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main
         cache-from: type=gha
         cache-to: type=gha,mode=max
+
+    - name: Inspect Image
+      run: |
+        docker run ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main conda list
+        docker images ls
+
+    - name: Test Image
+      run: |
+        docker run -u 1000 -w /srv/test -v $PWD:/srv/test ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main ./run_tests.sh ${{ env.IMAGE }}
