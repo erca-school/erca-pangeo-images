@@ -43,6 +43,6 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ github.repository_owner }}${{ env.IMAGE }}:main
+          ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main
         cache-from: type=gha
         cache-to: type=gha,mode=max
