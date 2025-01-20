@@ -8,7 +8,6 @@ env:
   IMAGE: student
   REGISTRY: ghcr.io
   GITHUB_SHA: ${{ github.sha }}
-  GITHUB_REF: ${{ github.ref }}
 
 jobs:
   build:
@@ -24,10 +23,7 @@ jobs:
 
     - name: Set Job Environment Variables
       run: |
-        CALVER="$( date -u '+%Y.%m.%d' )"
         SHA7="${GITHUB_SHA::7}"
-        DOCKER_TAG=$SHA7
-        echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -46,11 +42,11 @@ jobs:
       id: build-and-push
       uses: docker/build-push-action@v6
       with:
-        context: .
+        context: student-image
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
           ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:main
-          ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:${{ env.DOCKER_TAG }}
+          ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE }}:${{ env.SHA7 }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
