@@ -4,6 +4,9 @@ on:
     branches: [ "main" ]
     paths:
       - staff-image/Dockerfile
+  workflow_run:
+    workflows: [Build student image]
+    types: [completed]
 
 env:
   IMAGE: staff
