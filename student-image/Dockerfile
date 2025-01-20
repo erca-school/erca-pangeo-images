@@ -8,5 +8,5 @@ RUN echo "Installing additional packages..." \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo "Adding ${NB_USER} user to student group..." \
+RUN echo "Adding '${NB_USER}' user to student group..." \
     && groupadd --gid ${STUDENT_GID} ${NB_USER}
