@@ -1,14 +1,12 @@
-FROM pangeo/pangeo-notebook:2025.01.10
+FROM ghcr.io/erca-school/student:main
 
-ENV STUDENT_GID=1010 \
-    STAFF_GID=1011
+ENV STAFF_GID=1011 \
+    STAFF_GROUP=erca-staff
 
-RUN echo "Installing packages..." \
-    && apt-get update --fix-missing > /dev/null \
-    && apt-get install -y gcc gfortran nco cdo make emacs > /dev/null \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+USER root
 
-RUN echo "Adding ${NB_USER} user to student/staff group..." \
-    && groupadd --gid ${STUDENT_GID} ${NB_USER} \
-    && groupadd --gid ${STAFF_GID} ${NB_USER}
+RUN echo "Adding ${NB_USER} user to staff group..." \
+    && groupadd --gid ${STAFF_GID} ${STAFF_GROUP} \
+    && usermod -aG ${STAFF_GROUP} ${NB_USER}
+
+USER ${NB_USER}
