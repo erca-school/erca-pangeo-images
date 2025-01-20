@@ -1,2 +1,2 @@
-# ERCA Pangeo image 2025
-Custom Pangeo image used to instanciate student container for ERCA 2025
+# ERCA Pangeo images 2025
+Custom Pangeo images used to instanciate student and staff containers for ERCA 2025
