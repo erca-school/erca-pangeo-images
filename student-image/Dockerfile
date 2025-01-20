@@ -2,7 +2,7 @@ FROM pangeo/pangeo-notebook:2025.01.10
 
 ENV STUDENT_GID=1010
 
-RUN echo "Installing additional packages..." \
+RUN echo "Installing packages..." \
     && apt-get update --fix-missing > /dev/null \
     && apt-get install -y gcc gfortran nco cdo make emacs > /dev/null \
     && apt-get clean \
